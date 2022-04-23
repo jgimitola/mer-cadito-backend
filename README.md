@@ -1,1 +1,3 @@
-# Mer cadito backend
+# MERcadito backend
+
+Express + MongoDB backend for Backend Development Course.
