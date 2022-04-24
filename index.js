@@ -10,6 +10,7 @@ import cart from './src/routes/cart.js';
 import history from './src/routes/history.js';
 import reviews from './src/routes/reviews.js';
 import unknown from './src/routes/unknown.js';
+import error from './src/routes/error.js';
 
 const PORT = process.env.PORT || 3000;
 const DB_NAME = process.env.DB_NAME || 'test';
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(unknown);
+app.use(error);
 
 const main = async () => {
   console.log('###S Connecting to MongoDB...');
