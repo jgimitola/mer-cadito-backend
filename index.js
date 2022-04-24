@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
 import cors from 'cors';
 
 import users from './src/routes/users.js';
@@ -17,9 +18,13 @@ const MONGO_URI = process.env.MONGO_URI || 'notworking.com';
 const CONN_STR = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${MONGO_URI}/${DB_NAME}`;
 
 const app = express();
+morgan.token('body', (req, res) => JSON.stringify(req.body));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms :body')
+);
 app.use(cors());
 
 app.use('/users', users);
