@@ -4,8 +4,21 @@ import User from '../models/User.js';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({ message: 'Users' });
+router.get('/', async (req, res, next) => {
+  const query = req.query;
+
+  if (query.user_id) {
+    try {
+      const mongooseUser = await User.findById(query.user_id);
+      if (!mongooseUser) return res.status(200).json({});
+
+      const user = await mongooseUser.toObject();
+
+      return res.status(200).json({ ...user, password: undefined });
+    } catch (error) {
+      next(error);
+    }
+  }
 });
 
 router.post('/login', async (req, res, next) => {
