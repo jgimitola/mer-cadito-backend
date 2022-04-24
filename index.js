@@ -9,6 +9,7 @@ import posts from './src/routes/posts.js';
 import cart from './src/routes/cart.js';
 import history from './src/routes/history.js';
 import reviews from './src/routes/reviews.js';
+import unknown from './src/routes/unknown.js';
 
 const PORT = process.env.PORT || 3000;
 const DB_NAME = process.env.DB_NAME || 'test';
@@ -33,6 +34,12 @@ app.use('/cart', cart);
 app.use('/history', history);
 app.use('/reviews', reviews);
 
+app.get('/', (req, res) => {
+  res.json({ message: 'MERcadito API' });
+});
+
+app.use(unknown);
+
 const main = async () => {
   console.log('###S Connecting to MongoDB...');
 
@@ -48,10 +55,6 @@ const main = async () => {
   }
 
   console.log('###S Starting server...');
-
-  app.get('/', (req, res) => {
-    res.json({ message: 'MERcadito API' });
-  });
 
   app.listen(PORT, () => {
     console.log(`###S Server listening at port: ${PORT}`);
