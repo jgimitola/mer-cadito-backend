@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
   display_name: String,
   description: String,
   price: Number,
+  created_date: { type: Date, default: Date.now },
 });
 
 const Post = mongoose.model('Post', schema);
